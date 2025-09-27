@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<style>
+  .btn-eq { min-width: 80px; }
+  .item-compact { padding-top: .25rem; padding-bottom: .25rem; }
+  .list-box { max-height: 60vh; overflow: auto; }  /* opcional: lista scrolleable */
+</style>
+
+<h4 class="mt-4 mb-2 text-center">{{ titulo }}</h4>
+
+<div class="container mt-4 ">
+  <h5 class="text-center">{{ oficinas.nombre }} ({{ oficinas.nombre_corto }})</h5>
+
+  <h6 class="mt-3">Personas de esta oficina:</h6>
+  <div class="list-box">
+    <ul class="list-unstyled mb-0">
+      {% for persona in personas %}
+        <li class="border-bottom item-compact">
+          <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+            <span class="flex-grow-1 me-sm-3 text-truncate">
+              <a href="{% url 'persona:detalle' persona.pk %}" class="text-dark text-decoration-none">
+                {{ persona.apellido }}, {{ persona.nombre }}
+              </a>
+            </span>
+          </div>
+        </li>
+      {% empty %}
+        <li class="list-group-item">No hay personas registradas en esta oficina.</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="pt-2">
+    {% include 'paginator.htm' %}
+  </div>
+</div>
+{% endblock content %}

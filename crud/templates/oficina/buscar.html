@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+
+
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <h1 class="h4 mt-2 mb-2 text-center">{{ titulo }}</h1>
+                <form method="get" action="{% url 'oficina:buscar' %}">
+                    <input type="text" name="q" placeholder="Buscar oficina..." value="{{ query }}">
+                    <button type="submit">Buscar</button>
+                </form>
+                {% if query %}
+                    {% if oficinas %}
+                        <p>Se encontraron {{ oficinas|length }} resultados para la búsqueda {{ query }}</p>
+                    {% else %}
+                        <p>No se encontraron resultados para la búsqueda {{ query }}</p>
+                    {% endif %}
+                    <ul class="list-unstyled mb-0">
+                        {% for oficina in oficinas %}
+                          <li class="border-bottom item-compact">
+                            <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                              <span class="flex-grow-1 me-sm-3 text-truncate">
+                                {{oficina}}
+                              </span>
+                          
+                              <div class="d-grid gap-1 d-sm-flex">
+                                <a class="btn btn-info btn-sm px-3 btn-eq btn-black" href="{% url 'oficina:detalle' oficina.pk %}">Ver</a>
+                                <a class="btn btn-warning btn-sm px-3 btn-eq btn-black" href="{% url 'oficina:editar' oficina.pk %}">Modificar</a>
+                                <a class="btn btn-danger btn-sm px-3 btn-eq btn-black" href="{% url 'oficina:eliminar' oficina.pk %}">Eliminar</a>
+                              </div>
+                            </div>
+                          </li>
+                        {% endfor %}
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

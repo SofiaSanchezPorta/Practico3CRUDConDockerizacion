@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!--<form method="get">
+        <input type="text" name="q" placeholder="Buscar persona..." value="{{ query }}">
+        <button type="submit">Buscar</button>
+    </form>
+    -->
+    {% if query %}
+    <div class="container mt-3">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10 col-lg-8">
+                <h1 class="h4 mt-2 mb-2 text-center">{{ titulo }}</h1>
+                {% if personas %}
+                    <p>Se encontraron {{ personas|length }} resultados para la búsqueda {{ query }}</p>
+                {% else %}
+                    <p>No se encontraron resultados para la búsqueda {{ query }}</p>
+                {% endif %}
+                <ul class="list-unstyled mb-0">
+                    {% for persona in personas %}
+                      <li class="border-bottom item-compact">
+                        <div class="d-flex flex-column flex-sm-row align-items-sm-center">
+                          <span class="flex-grow-1 me-sm-3 text-truncate">
+                            {{persona}}
+                          </span>
+                      
+                          <div class="d-grid gap-1 d-sm-flex">
+                            <a class="btn btn-info btn-sm px-3 btn-eq btn-black" href="{% url 'persona:detalle' persona.pk %}">Ver</a>
+                            <a class="btn btn-warning btn-sm px-3 btn-eq btn-black" href="{% url 'persona:editar' persona.pk %}">Modificar</a>
+                            <a class="btn btn-danger btn-sm px-3 btn-eq btn-black" href="{% url 'persona:eliminar' persona.pk %}">Eliminar</a>
+                          </div>
+                        </div>
+                      </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+        
+{% endblock content %}

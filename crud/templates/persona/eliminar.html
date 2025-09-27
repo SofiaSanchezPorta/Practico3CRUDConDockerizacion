@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container d-flex justify-content-center mt-5" style="min-height: 100vh;">
+    <div>
+        <h4 class="mb-4 text-center">{{ title }}</h4>
+        <p>¿Estás seguro de que deseas eliminar a {{ persona.nombre }} {{ persona.apellido }} ?</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="container d-flex justify-content-center gap-3">
+                <button class="btn btn-secondary btn-sm px-3 btn-eq btn-black">Confirmar</button>
+                <a class="btn btn-secondary btn-sm px-3 btn-eq btn-black ml-3" href="{% url 'persona:lista' %}">Cancelar</a>
+            </div>
+            
+        </form>
+    
+    </div>
+</div>
+    
+    
+    
+{% endblock content %}
